@@ -1,0 +1,9 @@
+.beer-list {
+    display: flex;
+    width: 600px;
+    list-style: none;
+}
+
+.beer-list__item {
+    background-color: aqua;
+}
