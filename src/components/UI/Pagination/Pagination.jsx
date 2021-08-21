@@ -1,5 +1,5 @@
 import React from 'react';
-import './pagination.scss';
+import './Pagination.scss';
 
 import LinkButton from '../LinkButton';
 import QuantityChanger from '../QuantityChanger';
@@ -26,6 +26,9 @@ const Pagination = ({ setPage, page, beers, beersOnPage, setBeersOnPage }) => {
         />
       </div>
       <div className='pagination__beers-count-changer'>
+        <span className='pagination__beers-count-changer-text'>
+          Показывать по
+        </span>
         <QuantityChanger
           beersOnPage={beersOnPage}
           setBeersOnPage={setBeersOnPage}
