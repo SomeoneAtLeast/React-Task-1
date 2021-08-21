@@ -1,0 +1,12 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.pagination__page-changer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 200px;
+}

@@ -1,5 +1,13 @@
+.beer-list-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 500px;
+}
+
 .beer-list {
     display: flex;
+    flex-wrap: wrap;
     list-style: none;
     padding: 0;
 }

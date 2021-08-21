@@ -1,10 +1,11 @@
 .beer-list-item {
     display: flex;
+    box-sizing: border-box;
     width: 500px;
     padding: 10px;
     border: 1px solid black;
     border-radius: 15px;
-    margin-left: 20px;
+    margin-bottom: 15px;
 }
 
 .beer-list-item_img {

@@ -4,34 +4,46 @@ import './beerList.scss';
 
 import Spinner from '../Spinner';
 import BeerListItem from '../BeerListItem';
+import Pagination from '../UI/Pagination';
 
 const BeerList = () => {
   const { request } = useHttp();
 
   const [loading, setLoading] = useState(true);
-  const [bears, setBears] = useState([]);
+  const [beers, setBeers] = useState([]);
+  const [page, setPage] = useState(1);
+  const [beersOnPage, setBeersOnPage] = useState('3');
 
   const getBeers = async () => {
     const data = await request(
-      'https://api.punkapi.com/v2/beers?page=2&per_page=3'
+      `https://api.punkapi.com/v2/beers?page=${page}&per_page=${beersOnPage}`
     );
-    setBears(data);
+    setBeers(data);
     console.log(data);
   };
 
   useEffect(() => {
     getBeers();
     setLoading(false);
-  }, []);
+  }, [page, beersOnPage]);
 
   if (loading) return <Spinner />;
 
   return (
-    <ul className='beer-list'>
-      {bears.map((beer) => {
-        return <BeerListItem key={beer.id} beer={beer} />;
-      })}
-    </ul>
+    <div className='beer-list-wrapper'>
+      <ul className='beer-list'>
+        {beers.map((beer) => {
+          return <BeerListItem key={beer.id} beer={beer} />;
+        })}
+      </ul>
+      <Pagination
+        setPage={setPage}
+        page={page}
+        beers={beers}
+        beersOnPage={beersOnPage}
+        setBeersOnPage={setBeersOnPage}
+      />
+    </div>
   );
 };
 
