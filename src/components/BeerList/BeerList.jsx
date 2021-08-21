@@ -12,7 +12,9 @@ const BeerList = () => {
   const [bears, setBears] = useState([]);
 
   const getBeers = async () => {
-    const data = await request('https://api.punkapi.com/v2/beers');
+    const data = await request(
+      'https://api.punkapi.com/v2/beers?page=2&per_page=3'
+    );
     setBears(data);
     console.log(data);
   };
