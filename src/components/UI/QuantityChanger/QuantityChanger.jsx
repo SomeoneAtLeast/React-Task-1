@@ -1,5 +1,4 @@
 import React from 'react';
-import './QuantityChanger.scss';
 
 const QuantityChanger = ({ beersOnPage, setBeersOnPage }) => {
   return (
@@ -12,8 +11,8 @@ const QuantityChanger = ({ beersOnPage, setBeersOnPage }) => {
       <option value={5}>5</option>
       <option value={10}>10</option>
       <option value={20}>20</option>
-      <option value={30}>50</option>
-      <option value={40}>80</option>
+      <option value={50}>50</option>
+      <option value={80}>80</option>
     </select>
   );
 };

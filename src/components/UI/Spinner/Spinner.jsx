@@ -1,6 +1,6 @@
 import React from 'react';
 
-import spinnerImg from './spinner.svg';
+import spinnerImg from './Spinner.svg';
 
 const Spinner = () => {
   return (

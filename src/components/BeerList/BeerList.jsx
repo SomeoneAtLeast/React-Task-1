@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import useHttp from '../../hooks/http.hook';
-import './beerList.scss';
+import './BeerList.scss';
 
-import Spinner from '../Spinner';
+import Spinner from '../UI/Spinner';
 import BeerListItem from '../BeerListItem';
 import Pagination from '../UI/Pagination';
 
@@ -19,12 +19,12 @@ const BeerList = () => {
       `https://api.punkapi.com/v2/beers?page=${page}&per_page=${beersOnPage}`
     );
     setBeers(data);
+    setLoading(false);
     console.log(data);
   };
 
   useEffect(() => {
     getBeers();
-    setLoading(false);
   }, [page, beersOnPage]);
 
   if (loading) return <Spinner />;

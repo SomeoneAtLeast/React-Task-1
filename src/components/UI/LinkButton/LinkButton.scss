@@ -14,4 +14,14 @@
     &:active {
         transform: scale(0.9);
     }
+
+    &--disabled {
+        cursor: default;
+        opacity: 0.5;
+        
+        &:hover,
+        &:active {
+            transform: none;
+        }
+    }
 }
