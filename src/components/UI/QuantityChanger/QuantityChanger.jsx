@@ -7,8 +7,8 @@ const QuantityChanger = ({ beersOnPage, setBeersOnPage }) => {
       value={beersOnPage}
       onChange={(e) => setBeersOnPage(+e.target.value)}
     >
-      <option value={3}>3</option>
-      <option value={5}>5</option>
+      <option value={4}>4</option>
+      <option value={6}>6</option>
       <option value={10}>10</option>
       <option value={20}>20</option>
       <option value={50}>50</option>

@@ -12,7 +12,7 @@ const BeerList = () => {
   const [loading, setLoading] = useState(true);
   const [beers, setBeers] = useState([]);
   const [page, setPage] = useState(1);
-  const [beersOnPage, setBeersOnPage] = useState(3);
+  const [beersOnPage, setBeersOnPage] = useState(4);
 
   const getBeers = async () => {
     const data = await request(
