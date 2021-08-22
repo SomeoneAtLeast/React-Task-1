@@ -1,11 +1,17 @@
 import React from 'react';
 
-const QuantityChanger = ({ beersOnPage, setBeersOnPage }) => {
+const QuantityChanger = ({ beersOnPage, setBeersOnPage, setPage }) => {
+  const onChangeBeersOnPage = (event, beersOnPage) => {
+    if (event.target.value === beersOnPage) return;
+    setPage(1);
+    setBeersOnPage(+event.target.value);
+  };
+
   return (
     <select
       className='quantity-changer'
       value={beersOnPage}
-      onChange={(e) => setBeersOnPage(+e.target.value)}
+      onChange={(event) => onChangeBeersOnPage(event, beersOnPage)}
     >
       <option value={4}>4</option>
       <option value={6}>6</option>

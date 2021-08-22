@@ -1,18 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Pagination.scss';
 
 import LinkButton from '../LinkButton';
 import QuantityChanger from '../QuantityChanger';
-import { useEffect } from 'react/cjs/react.development';
 
-const Pagination = ({ setPage, page, beers, beersOnPage, setBeersOnPage }) => {
+const Pagination = ({
+  setPage,
+  page,
+  beers,
+  beersOnPage,
+  setBeersOnPage,
+  beerItemsLoading,
+}) => {
   const [cantBack, setCantBack] = useState(false);
   const [cantNext, setCantNext] = useState(false);
 
-  const changePage = (event, changeFunc, page, direction) => {
+  const onChangePage = (event, changeFunc, page, direction) => {
     event.preventDefault();
-    if (page > 1 && direction === 'back') changeFunc(--page);
-    if (direction === 'next' && beers.length === beersOnPage)
+    if (page > 1 && direction === 'back' && !beerItemsLoading)
+      changeFunc(--page);
+    if (
+      direction === 'next' &&
+      beers.length === beersOnPage &&
+      !beerItemsLoading
+    )
       changeFunc(++page);
   };
 
@@ -39,13 +50,13 @@ const Pagination = ({ setPage, page, beers, beersOnPage, setBeersOnPage }) => {
         <LinkButton
           btnText='Назад'
           disabled={cantBack}
-          func={() => changePage(event, setPage, page, 'back')}
+          func={() => onChangePage(event, setPage, page, 'back')}
         />
         <span>{page}</span>
         <LinkButton
           btnText='Вперед'
           disabled={cantNext}
-          func={() => changePage(event, setPage, page, 'next')}
+          func={() => onChangePage(event, setPage, page, 'next')}
         />
       </div>
       <div className='pagination__beers-count-changer'>
@@ -55,6 +66,7 @@ const Pagination = ({ setPage, page, beers, beersOnPage, setBeersOnPage }) => {
         <QuantityChanger
           beersOnPage={beersOnPage}
           setBeersOnPage={setBeersOnPage}
+          setPage={setPage}
         />
       </div>
     </div>
