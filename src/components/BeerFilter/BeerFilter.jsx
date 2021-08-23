@@ -5,15 +5,16 @@ import { beerFilterModel } from '../../models/beerFilterModel';
 import Input from '../UI/Input';
 import Button from '../UI/Button';
 
-const BeerFilter = ({ filters, setFilters, setPage }) => {
+const BeerFilter = ({ filters, setFilters }) => {
   const [newFilters, setNewFilters] = useState(filters);
 
-  const onSetNewFilters = (setFiltersCb, setPageCb) => {
+  const onSetNewFilters = (setFiltersCb) => {
+    event.preventDefault();
     setFiltersCb({ ...filters, ...newFilters });
-    setPageCb(1);
   };
 
   const onClearFilter = (setFiltersCb) => {
+    event.preventDefault();
     Object.keys(newFilters).forEach((el) => (newFilters[el] = ''));
     setFiltersCb(newFilters);
   };
@@ -35,7 +36,7 @@ const BeerFilter = ({ filters, setFilters, setPage }) => {
                   name={filter.name}
                   type={filter.type}
                   value={newFilters[filter.name]}
-                  newFilters={newFilters}
+                  state={newFilters}
                   func={setNewFilters}
                   placeholder={placeholder}
                 />
@@ -47,7 +48,7 @@ const BeerFilter = ({ filters, setFilters, setPage }) => {
       <div className='beer-filter__btns'>
         <Button
           btnText='Фильтровать'
-          func={() => onSetNewFilters(setFilters, setPage)}
+          func={() => onSetNewFilters(setFilters)}
         />
         <Button btnText='Сбросить' func={() => onClearFilter(setFilters)} />
       </div>

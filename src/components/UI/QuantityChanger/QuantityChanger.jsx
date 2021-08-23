@@ -1,9 +1,8 @@
 import React from 'react';
 
-const QuantityChanger = ({ beersOnPage, setBeersOnPage, setPage }) => {
+const QuantityChanger = ({ beersOnPage, setBeersOnPage }) => {
   const onChangeBeersOnPage = (event, beersOnPage) => {
     if (event.target.value === beersOnPage) return;
-    setPage(1);
     setBeersOnPage(+event.target.value);
   };
 

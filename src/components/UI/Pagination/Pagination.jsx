@@ -15,7 +15,7 @@ const Pagination = ({
   const [cantBack, setCantBack] = useState(false);
   const [cantNext, setCantNext] = useState(false);
 
-  const onChangePage = (event, changeFunc, page, direction) => {
+  const onChangePage = (changeFunc, page, direction) => {
     event.preventDefault();
     if (page > 1 && direction === 'back' && !beerItemsLoading)
       changeFunc(--page);
@@ -49,13 +49,13 @@ const Pagination = ({
         <LinkButton
           btnText='Назад'
           disabled={cantBack}
-          func={() => onChangePage(event, setPage, page, 'back')}
+          func={() => onChangePage(setPage, page, 'back')}
         />
         <span>{page}</span>
         <LinkButton
           btnText='Вперед'
           disabled={cantNext}
-          func={() => onChangePage(event, setPage, page, 'next')}
+          func={() => onChangePage(setPage, page, 'next')}
         />
       </div>
       <div className='pagination__beers-count-changer'>

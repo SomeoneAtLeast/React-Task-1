@@ -1,0 +1,17 @@
+.beer-search {
+    position: fixed;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 300px;
+    border-radius: 15px;
+    background-color: rgb(255, 207, 117);
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.5);
+    left: 70px;
+    top: 600px;
+    padding-bottom: 20px;
+
+    input {
+        width: 250px;
+    }
+}

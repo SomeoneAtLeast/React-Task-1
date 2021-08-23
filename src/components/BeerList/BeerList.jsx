@@ -6,6 +6,7 @@ import Spinner from '../UI/Spinner';
 import BeerListItem from '../BeerListItem';
 import Pagination from '../UI/Pagination';
 import BeerFilter from '../BeerFilter';
+import BeerSearch from '../BeerSearch';
 
 const BeerList = () => {
   const { request } = useHttp();
@@ -30,7 +31,10 @@ const BeerList = () => {
     food: '',
     ids: '',
   });
-
+  const [beerName, setBeerName] = useState({
+    name: '',
+  });
+  console.log(beerName);
   let url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=${beersOnPage}`;
   if (filters.abv_gt) url += `&abv_gt=${filters.abv_gt}`;
   if (filters.abv_lt) url += `&abv_lt=${filters.abv_lt}`;
@@ -45,6 +49,7 @@ const BeerList = () => {
   if (filters.malt) url += `&malt=${filters.malt.replace(/\s/g, '_')}`;
   if (filters.food) url += `&food=${filters.food.replace(/\s/g, '_')}`;
   if (filters.ids) url += `&ids=${filters.ids}`;
+  if (beerName.name) url += `&beer_name=${beerName.name.replace(/\s/g, '_')}`;
 
   const getBeers = async () => {
     try {
@@ -59,8 +64,12 @@ const BeerList = () => {
   };
 
   useEffect(() => {
+    setPage(1);
+  }, [beersOnPage, filters, beerName]);
+
+  useEffect(() => {
     getBeers();
-  }, [page, beersOnPage, filters]);
+  }, [page, beersOnPage, filters, beerName]);
 
   if (initialLoading) return <Spinner />;
 
@@ -77,6 +86,7 @@ const BeerList = () => {
           setBeersOnPage={setBeersOnPage}
           beerItemsLoading={beerItemsLoading}
         />
+        <BeerSearch setBeerName={setBeerName} beerName={beerName} />
       </div>
     );
 
@@ -96,6 +106,7 @@ const BeerList = () => {
         beerItemsLoading={beerItemsLoading}
       />
       <BeerFilter filters={filters} setFilters={setFilters} setPage={setPage} />
+      <BeerSearch setBeerName={setBeerName} beerName={beerName} />
     </div>
   );
 };
