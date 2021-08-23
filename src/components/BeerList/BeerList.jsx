@@ -16,13 +16,19 @@ const BeerList = () => {
   const [page, setPage] = useState(1);
   const [beersOnPage, setBeersOnPage] = useState(4);
   const [filters, setFilters] = useState({
-    abv_gt: undefined,
-    abv_lt: undefined,
-    ibu_gt: undefined,
-    ibu_lt: undefined,
-    ebc_gt: undefined,
-    ebc_lt: undefined,
-    yeast: undefined,
+    abv_gt: '',
+    abv_lt: '',
+    ibu_gt: '',
+    ibu_lt: '',
+    ebc_gt: '',
+    ebc_lt: '',
+    yeast: '',
+    brewed_before: '',
+    brewed_after: '',
+    hops: '',
+    malt: '',
+    food: '',
+    ids: '',
   });
 
   let url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=${beersOnPage}`;
@@ -33,27 +39,44 @@ const BeerList = () => {
   if (filters.ebc_gt) url += `&ebc_gt=${filters.ebc_gt}`;
   if (filters.ebc_lt) url += `&ebc_lt=${filters.ebc_lt}`;
   if (filters.yeast) url += `&yeast=${filters.yeast.replace(/\s/g, '_')}`;
+  if (filters.brewed_before) url += `&brewed_before=${filters.brewed_before}`;
+  if (filters.brewed_after) url += `&brewed_after=${filters.brewed_after}`;
+  if (filters.hops) url += `&hops=${filters.hops.replace(/\s/g, '_')}`;
+  if (filters.malt) url += `&malt=${filters.malt.replace(/\s/g, '_')}`;
+  if (filters.food) url += `&food=${filters.food.replace(/\s/g, '_')}`;
+  if (filters.ids) url += `&ids=${filters.ids}`;
 
   const getBeers = async () => {
-    setBeerItemsLoading(true);
-    const data = await request(url);
-    setBeers(data);
-    setInitialLoading(false);
-    setBeerItemsLoading(false);
-    console.log(data);
+    try {
+      setBeerItemsLoading(true);
+      const data = await request(url);
+      setBeers(data);
+      setInitialLoading(false);
+      setBeerItemsLoading(false);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {
     getBeers();
-  }, [page, beersOnPage]);
+  }, [page, beersOnPage, filters]);
 
   if (initialLoading) return <Spinner />;
 
   if (!beers.length)
     return (
       <div className='beer-list-wrapper'>
-        <BeerFilter />
+        <BeerFilter filters={filters} setFilters={setFilters} />
         <div className='no-beers'>Ничего не нашлось</div>
+        <Pagination
+          setPage={setPage}
+          page={page}
+          beers={beers}
+          beersOnPage={beersOnPage}
+          setBeersOnPage={setBeersOnPage}
+          beerItemsLoading={beerItemsLoading}
+        />
       </div>
     );
 
@@ -72,7 +95,7 @@ const BeerList = () => {
         setBeersOnPage={setBeersOnPage}
         beerItemsLoading={beerItemsLoading}
       />
-      <BeerFilter filters={filters} setFilters={setFilters} />
+      <BeerFilter filters={filters} setFilters={setFilters} setPage={setPage} />
     </div>
   );
 };

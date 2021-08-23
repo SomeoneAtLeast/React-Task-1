@@ -1,16 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './BeerFilter.scss';
 
-import Input from '../UI/Input';
 import { beerFilterModel } from '../../models/beerFilterModel';
+import Input from '../UI/Input';
+import Button from '../UI/Button';
 
-const BeerFilter = ({ filters, setFilters }) => {
+const BeerFilter = ({ filters, setFilters, setPage }) => {
+  const [newFilters, setNewFilters] = useState(filters);
+
+  const onSetNewFilters = (setFiltersCb, setPageCb) => {
+    setFiltersCb({ ...filters, ...newFilters });
+    setPageCb(1);
+  };
+
+  const onClearFilter = (setFiltersCb) => {
+    Object.keys(newFilters).forEach((el) => (newFilters[el] = ''));
+    setFiltersCb(newFilters);
+  };
+
   return (
     <form className='beer-filter'>
       <h2 className='beer-filter__title'>Beer Filter</h2>
       <ul className='beer-filter__list'>
         {beerFilterModel.map((filter) => {
-          console.log(filters[filter.name]);
+          let placeholder = null;
+          if (filter.name === 'brewed_before' || filter.name === 'brewed_after')
+            placeholder = 'mm-yyyy';
+          if (filter.name === 'ids') placeholder = 'id|id';
           return (
             <li key={filter.id} className='beer-filter__list-item'>
               <label className='beer-filter__input-label'>
@@ -18,14 +34,23 @@ const BeerFilter = ({ filters, setFilters }) => {
                 <Input
                   name={filter.name}
                   type={filter.type}
-                  value={filters[filter.name]}
-                  func={setFilters}
+                  value={newFilters[filter.name]}
+                  newFilters={newFilters}
+                  func={setNewFilters}
+                  placeholder={placeholder}
                 />
               </label>
             </li>
           );
         })}
       </ul>
+      <div className='beer-filter__btns'>
+        <Button
+          btnText='Фильтровать'
+          func={() => onSetNewFilters(setFilters, setPage)}
+        />
+        <Button btnText='Сбросить' func={() => onClearFilter(setFilters)} />
+      </div>
     </form>
   );
 };

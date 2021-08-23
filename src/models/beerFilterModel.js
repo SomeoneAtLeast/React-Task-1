@@ -36,12 +36,12 @@ export const beerFilterModel = [
   },
   {
     name: 'brewed_before',
-    type: 'date',
+    type: 'text',
     id: 8,
   },
   {
     name: 'brewed_after',
-    type: 'date',
+    type: 'text',
     id: 9,
   },
   {

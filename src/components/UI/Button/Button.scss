@@ -1,0 +1,19 @@
+.btn {
+    border: 1px solid black;
+    border-radius: 5px;
+    text-decoration: none;
+    color: black;
+    width: 80%;
+    text-align: center;
+    padding: 10px 0;
+    transition: 0.2s;
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(0.95);
+    }
+
+    &:active {
+        transform: scale(0.9);
+    }
+}

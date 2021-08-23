@@ -36,14 +36,13 @@ const Pagination = ({
   }, [page]);
 
   useEffect(() => {
-    if (beers.length && beers.length !== beersOnPage) {
+    if ((beers.length && beers.length !== beersOnPage) || !beers.length) {
       setCantNext(true);
     } else {
       setCantNext(false);
     }
-  }, [beers.length]);
+  }, [beers.length, beersOnPage]);
 
-  console.log(beers.length, beersOnPage);
   return (
     <div className='pagination'>
       <div className='pagination__page-changer'>

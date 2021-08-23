@@ -1,10 +1,11 @@
 import React from 'react';
 
-const Input = ({ name, type, value, func }) => (
+const Input = ({ name, type, value, func, placeholder, newFilters }) => (
   <input
     type={type}
     value={value}
-    onChange={() => func({ [name]: event.target.value })}
+    placeholder={placeholder}
+    onChange={() => func({ ...newFilters, [name]: event.target.value })}
   />
 );
 
