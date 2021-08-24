@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import useHttp from '../../hooks/http.hook';
+import useDebounce from '../../hooks/debounce.hook';
 import './BeerList.scss';
 
 import Spinner from '../UI/Spinner';
@@ -31,9 +32,11 @@ const BeerList = () => {
     food: '',
     ids: '',
   });
+
   const [beerName, setBeerName] = useState({
     name: '',
   });
+
   console.log(beerName);
   let url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=${beersOnPage}`;
   if (filters.abv_gt) url += `&abv_gt=${filters.abv_gt}`;
@@ -63,13 +66,15 @@ const BeerList = () => {
     }
   };
 
+  const debouncedBeerName = useDebounce(beerName, 200);
+
   useEffect(() => {
     setPage(1);
-  }, [beersOnPage, filters, beerName]);
+  }, [beersOnPage, filters, debouncedBeerName]);
 
   useEffect(() => {
     getBeers();
-  }, [page, beersOnPage, filters, beerName]);
+  }, [page, beersOnPage, filters, debouncedBeerName]);
 
   if (initialLoading) return <Spinner />;
 
