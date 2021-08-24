@@ -8,15 +8,30 @@ import Button from '../UI/Button';
 const BeerFilter = ({ filters, setFilters }) => {
   const [newFilters, setNewFilters] = useState(filters);
 
+  const setNewNumberFilters = (numberFilters) => {
+    event.preventDefault();
+    Object.keys(numberFilters).forEach((el) => {
+      if (isNaN(numberFilters[el])) numberFilters[el] = '';
+    });
+    setNewFilters(numberFilters);
+  };
+
   const onSetNewFilters = (setFiltersCb) => {
     event.preventDefault();
-    setFiltersCb({ ...filters, ...newFilters });
+    const newFiltersCopy = { ...newFilters };
+    Object.keys(newFiltersCopy).forEach((el) => {
+      if (newFiltersCopy[el] < 0) newFiltersCopy[el] = '';
+    });
+    setNewFilters(newFiltersCopy);
+    setFiltersCb({ ...filters, ...newFiltersCopy });
   };
 
   const onClearFilter = (setFiltersCb) => {
     event.preventDefault();
-    Object.keys(newFilters).forEach((el) => (newFilters[el] = ''));
-    setFiltersCb(newFilters);
+    const newFiltersCopy = { ...newFilters };
+    Object.keys(newFiltersCopy).forEach((el) => (newFiltersCopy[el] = ''));
+    setNewFilters(newFiltersCopy);
+    setFiltersCb(newFiltersCopy);
   };
 
   return (
@@ -25,6 +40,7 @@ const BeerFilter = ({ filters, setFilters }) => {
       <ul className='beer-filter__list'>
         {beerFilterModel.map((filter) => {
           let placeholder = null;
+          if (filter.type === 'number') placeholder = 'positive numbers';
           if (filter.name === 'brewed_before' || filter.name === 'brewed_after')
             placeholder = 'mm-yyyy';
           if (filter.name === 'ids') placeholder = 'id|id';
@@ -34,10 +50,14 @@ const BeerFilter = ({ filters, setFilters }) => {
                 <span>{filter.name}</span>
                 <Input
                   name={filter.name}
-                  type={filter.type}
+                  type='text'
                   value={newFilters[filter.name]}
                   state={newFilters}
-                  func={setNewFilters}
+                  func={
+                    filter.type === 'number'
+                      ? setNewNumberFilters
+                      : setNewFilters
+                  }
                   placeholder={placeholder}
                 />
               </label>

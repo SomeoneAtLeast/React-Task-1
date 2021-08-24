@@ -37,22 +37,22 @@ const BeerList = () => {
     name: '',
   });
 
-  console.log(beerName);
   let url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=${beersOnPage}`;
-  if (filters.abv_gt) url += `&abv_gt=${filters.abv_gt}`;
-  if (filters.abv_lt) url += `&abv_lt=${filters.abv_lt}`;
-  if (filters.ibu_gt) url += `&ibu_gt=${filters.ibu_gt}`;
-  if (filters.ibu_lt) url += `&ibu_lt=${filters.ibu_lt}`;
-  if (filters.ebc_gt) url += `&ebc_gt=${filters.ebc_gt}`;
-  if (filters.ebc_lt) url += `&ebc_lt=${filters.ebc_lt}`;
-  if (filters.yeast) url += `&yeast=${filters.yeast.replace(/\s/g, '_')}`;
-  if (filters.brewed_before) url += `&brewed_before=${filters.brewed_before}`;
-  if (filters.brewed_after) url += `&brewed_after=${filters.brewed_after}`;
-  if (filters.hops) url += `&hops=${filters.hops.replace(/\s/g, '_')}`;
-  if (filters.malt) url += `&malt=${filters.malt.replace(/\s/g, '_')}`;
-  if (filters.food) url += `&food=${filters.food.replace(/\s/g, '_')}`;
-  if (filters.ids) url += `&ids=${filters.ids}`;
-  if (beerName.name) url += `&beer_name=${beerName.name.replace(/\s/g, '_')}`;
+
+  for (const filter in filters) {
+    if (
+      filters[filter] &&
+      (filter === 'yeast' ||
+        filter === 'hops' ||
+        filter === 'malt' ||
+        filter === 'food' ||
+        filter === 'name')
+    ) {
+      url += `&${filter}=${filters[filter].replace(/\s/g, '_')}`;
+    } else if (filters[filter]) {
+      url += `&${filter}=${filters[filter]}`;
+    }
+  }
 
   const getBeers = async () => {
     try {

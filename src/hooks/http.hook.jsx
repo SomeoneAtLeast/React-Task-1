@@ -1,9 +1,6 @@
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 
 const useHttp = () => {
-  const [success, setSuccess] = useState(null);
-  const [error, setError] = useState(null);
-
   const request = useCallback(
     async (url, method = 'GET', body = null, headers = {}) => {
       try {
@@ -19,21 +16,15 @@ const useHttp = () => {
           throw new Error(data.message || 'Что-то не так');
         }
 
-        setSuccess(data.message);
         return data;
       } catch (e) {
-        setSuccess(null);
-        setError(e.message);
-        throw e;
+        console.log(e);
       }
     },
     []
   );
 
-  const clearSuccess = useCallback(() => setSuccess(null), []);
-  const clearError = useCallback(() => setError(null), []);
-
-  return { request, success, error, clearSuccess, clearError };
+  return { request };
 };
 
 export default useHttp;
