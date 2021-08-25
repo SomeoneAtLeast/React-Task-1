@@ -44,6 +44,7 @@ const BeerFilter = ({ filters, setFilters }) => {
           if (filter.name === 'brewed_before' || filter.name === 'brewed_after')
             placeholder = 'mm-yyyy';
           if (filter.name === 'ids') placeholder = 'id|id';
+
           return (
             <li key={filter.id} className='beer-filter__list-item'>
               <label className='beer-filter__input-label'>
