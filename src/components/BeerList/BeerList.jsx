@@ -54,6 +54,8 @@ const BeerList = () => {
     }
   }
 
+  if (beerName.name) url += `&beer_name=${beerName.name}`;
+
   const getBeers = async () => {
     try {
       setBeerItemsLoading(true);
