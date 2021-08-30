@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import useHttp from '../../hooks/http.hook';
-import useDebounce from '../../hooks/debounce.hook';
+import useHttp from '../../hooks/useHttp';
+import useDebounce from '../../hooks/useDebounce';
 import './BeerList.scss';
 
 import Spinner from '../UI/Spinner';
