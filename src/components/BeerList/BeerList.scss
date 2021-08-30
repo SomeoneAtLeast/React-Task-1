@@ -1,0 +1,23 @@
+.beer-list-wrapper {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    width: 1017px;
+    padding-bottom: 20px;
+    margin-left: 26%;
+}
+
+.beer-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    list-style: none;
+    padding: 0;
+}
+
+.no-beers {
+    font-size: 26px;
+    margin: 50px auto;
+
+}

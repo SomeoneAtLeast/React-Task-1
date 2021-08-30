@@ -1,0 +1,28 @@
+.link-btn {
+    border: 1px solid black;
+    border-radius: 5px;
+    text-decoration: none;
+    color: black;
+    padding: 10px 20px;
+    transition: 0.2s;
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(0.95);
+    }
+
+    &:active {
+        transform: scale(0.9);
+    }
+
+    &--disabled {
+        pointer-events: none;
+        cursor: default;
+        opacity: 0.5;
+        
+        &:hover,
+        &:active {
+            transform: none;
+        }
+    }
+}
