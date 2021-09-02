@@ -28,11 +28,7 @@ const Pagination = ({
   };
 
   useEffect(() => {
-    if (page === 1) {
-      setCantBack(true);
-    } else {
-      setCantBack(false);
-    }
+    setCantBack(page === 1);
   }, [page]);
 
   useEffect(() => {
