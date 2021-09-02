@@ -8,16 +8,16 @@ import Button from '../UI/Button';
 const BeerFilter = ({ filters, setFilters }) => {
   const [newFilters, setNewFilters] = useState(filters);
 
-  const setNewNumberFilters = (numberFilters) => {
-    event.preventDefault();
+  const setNewNumberFilters = (numberFilters, e) => {
+    e.preventDefault();
     Object.keys(numberFilters).forEach((el) => {
       if (isNaN(numberFilters[el])) numberFilters[el] = '';
     });
     setNewFilters(numberFilters);
   };
 
-  const onSetNewFilters = (setFiltersCb) => {
-    event.preventDefault();
+  const onSetNewFilters = (e, setFiltersCb) => {
+    e.preventDefault();
     const newFiltersCopy = { ...newFilters };
     Object.keys(newFiltersCopy).forEach((el) => {
       if (newFiltersCopy[el] < 0) newFiltersCopy[el] = '';
@@ -26,8 +26,8 @@ const BeerFilter = ({ filters, setFilters }) => {
     setFiltersCb({ ...filters, ...newFiltersCopy });
   };
 
-  const onClearFilter = (setFiltersCb) => {
-    event.preventDefault();
+  const onClearFilter = (e, setFiltersCb) => {
+    e.preventDefault();
     const newFiltersCopy = { ...newFilters };
     Object.keys(newFiltersCopy).forEach((el) => (newFiltersCopy[el] = ''));
     setNewFilters(newFiltersCopy);
@@ -67,11 +67,8 @@ const BeerFilter = ({ filters, setFilters }) => {
         })}
       </ul>
       <div className='beer-filter__btns'>
-        <Button
-          btnText='Фильтровать'
-          func={() => onSetNewFilters(setFilters)}
-        />
-        <Button btnText='Сбросить' func={() => onClearFilter(setFilters)} />
+        <Button btnText='Фильтровать' func={onSetNewFilters} arg={setFilters} />
+        <Button btnText='Сбросить' func={onClearFilter} arg={setFilters} />
       </div>
     </form>
   );

@@ -5,7 +5,7 @@ const Input = ({ name, type, value, func, placeholder, state }) => (
     type={type}
     value={value}
     placeholder={placeholder}
-    onChange={() => func({ ...state, [name]: event.target.value })}
+    onChange={(e) => func({ ...state, [name]: e.target.value }, e)}
   />
 );
 
