@@ -37,7 +37,7 @@ const BeerList = () => {
     name: '',
   });
 
-  let url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=${beersOnPage}`;
+  let url = `${process.env.REACT_APP_API_URL}/beers?page=${page}&per_page=${beersOnPage}`;
 
   for (const filter in filters) {
     if (
