@@ -37,7 +37,7 @@ const BeerList = () => {
     name: '',
   });
 
-  let url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=${beersOnPage}`;
+  let url = `${process.env.REACT_APP_API_URL}/beers?page=${page}&per_page=${beersOnPage}`;
 
   for (const filter in filters) {
     if (
@@ -80,30 +80,17 @@ const BeerList = () => {
 
   if (initialLoading) return <Spinner />;
 
-  if (!beers.length)
-    return (
-      <div className='beer-list-wrapper'>
-        <BeerFilter filters={filters} setFilters={setFilters} />
-        <div className='no-beers'>Ничего не нашлось</div>
-        <Pagination
-          setPage={setPage}
-          page={page}
-          beers={beers}
-          beersOnPage={beersOnPage}
-          setBeersOnPage={setBeersOnPage}
-          beerItemsLoading={beerItemsLoading}
-        />
-        <BeerSearch setBeerName={setBeerName} beerName={beerName} />
-      </div>
-    );
-
   return (
     <div className='beer-list-wrapper'>
-      <ul className='beer-list'>
-        {beers.map((beer) => {
-          return <BeerListItem key={beer.id} beer={beer} />;
-        })}
-      </ul>
+      {!beers.length ? (
+        <div className='no-beers'>Ничего не нашлось</div>
+      ) : (
+        <ul className='beer-list'>
+          {beers.map((beer) => {
+            return <BeerListItem key={beer.id} beer={beer} />;
+          })}
+        </ul>
+      )}
       <Pagination
         setPage={setPage}
         page={page}

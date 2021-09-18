@@ -1,13 +1,13 @@
 import React from 'react';
 import './Button.scss';
 
-const Button = ({ btnText, func }) => {
+const Button = ({ btnText, func, arg }) => {
   let classNames = 'btn';
 
   return (
-    <a href='#' className={classNames} onClick={() => func()}>
+    <button className={classNames} onClick={(e) => func(e, arg)}>
       {btnText}
-    </a>
+    </button>
   );
 };
 

@@ -18,21 +18,17 @@ const Pagination = ({
   const onChangePage = (changeFunc, page, direction) => {
     event.preventDefault();
     if (page > 1 && direction === 'back' && !beerItemsLoading)
-      changeFunc(--page);
+      changeFunc(page - 1);
     if (
       direction === 'next' &&
       beers.length === beersOnPage &&
       !beerItemsLoading
     )
-      changeFunc(++page);
+      changeFunc(page + 1);
   };
 
   useEffect(() => {
-    if (page === 1) {
-      setCantBack(true);
-    } else {
-      setCantBack(false);
-    }
+    setCantBack(page === 1);
   }, [page]);
 
   useEffect(() => {

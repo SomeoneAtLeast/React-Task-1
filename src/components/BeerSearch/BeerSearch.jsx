@@ -8,7 +8,7 @@ const BeerSearch = ({ beerName, setBeerName }) => {
     <form className='beer-search'>
       <h3>Beer Search</h3>
       <Input
-        name={'name'}
+        name='name'
         value={beerName.name}
         func={setBeerName}
         placeholder='Beer name'
